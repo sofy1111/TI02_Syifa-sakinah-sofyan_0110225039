@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+s<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Pemesanan Barang</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        padding: 20px;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: white;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        background-color: #e8e8e8;
+        padding: 8px 15px;
+        border-bottom: 1px solid #ccc;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .header-icons {
+        display: flex;
+        gap: 8px;
+        font-size: 18px;
+      }
+      .url-bar {
+        flex: 1;
+        padding: 4px 10px;
+        border: 1px solid #999;
+        border-radius: 3px;
+        background-color: white;
+      }
+      .nav-tabs {
+        display: flex;
+        background-color: #f0f0f0;
+        border-bottom: 2px solid #ccc;
+      }
+      .nav-tab {
+        padding: 10px 30px;
+        cursor: pointer;
+        border-right: 1px solid #ccc;
+        background-color: white;
+        border-bottom: none;
+      }
+      .nav-tab.active {
+        background-color: white;
+        border-bottom: 3px solid #4caf50;
+      }
+      .content {
+        display: flex;
+        padding: 30px;
+        gap: 40px;
+      }
+      .left-section {
+        flex: 0 0 200px;
+      }
+      .image-upload {
+        width: 200px;
+        height: 200px;
+        border: 2px solid #999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background-color: #fafafa;
+        background-size: cover;
+        background-position: center;
+      }
+      .image-upload::before,
+      .image-upload::after {
+        content: "";
+        position: absolute;
+        background-color: #999;
+      }
+      .image-upload::before {
+        width: 2px;
+        height: 150px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+      .image-upload::after {
+        width: 150px;
+        height: 2px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+      .upload-btn {
+        margin-top: 10px;
+        padding: 8px 20px;
+        background-color: #f0f0f0;
+        border: 1px solid #999;
+        cursor: pointer;
+        width: 100%;
+      }
+      .right-section {
+        flex: 1;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: normal;
+        color: #333;
+      }
+      .form-group input[type="text"],
+      .form-group input[type="number"],
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #999;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+      }
+      .form-group textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+      .quantity-box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .quantity-box input {
+        width: 60px;
+        text-align: center;
+        padding: 8px;
+        border: 1px solid #999;
+        font-size: 16px;
+      }
+      .quantity-note {
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+      }
+      .checkbox-group {
+        margin-top: 10px;
+      }
+      .checkbox-group label {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        font-weight: normal;
+      }
+      .checkbox-group input[type="checkbox"] {
+        margin-right: 8px;
+        width: 16px;
+        height: 16px;
+      }
+      .submit-section {
+        margin-top: 30px;
+        text-align: center;
+      }
+      .submit-btn {
+        background-color: #4caf50;
+        color: white;
+        padding: 12px 40px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .submit-btn:hover {
+        background-color: #45a049;
+      }
+
+      .image-placeholder {
+        color: #666;
+        font-size: 13px;
+        text-align: center;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="header-icons"><span>←</span><span>→</span><span></span><span>⟳</span></div>
+        <input type="text" class="url-bar" value="http://" readonly />
+        <button style="padding: 4px 15px; border: 1px solid #999; border-radius: 3px; background: white">⚲</button>
+      </div>
+
+      <div class="nav-tabs">
+        <div class="nav-tab active">Home</div>
+        <div class="nav-tab">Generate Link</div>
+        <div class="nav-tab">Transaction History</div>
+        <div class="nav-tab">Policy</div>
+        <div class="nav-tab">Logout</div>
+      </div>
+
+      <div class="content">
+        <div class="left-section">
+          <div class="image-upload" id="imagePreview">
+            <div class="image-placeholder" id="placeholderText">No image selected</div>
+          </div>
+          <button class="upload-btn" onclick="document.getElementById('fileInput').click()">Upload Picture</button>
+          <input type="file" id="fileInput" style="display: none" accept="image/*" onchange="previewImage(event)" />
+        </div>
+
+        <div class="right-section">
+          <form id="orderForm" onsubmit="submitForm(event)">
+            <div class="form-group">
+              <label>Title Name</label>
+              <input type="text" id="titleName" placeholder="Lenovo G40-30" required />
+            </div>
+
+            <div class="form-group">
+              <label>Description</label>
+              <textarea id="description" placeholder="Year : 2014&#10;Model Lenovo G40-30&#10;Condition : Mint" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Account Number</label>
+              <input type="text" id="accountNumber" placeholder="0822-4962-1374" required />
+            </div>
+
+            <div class="form-group">
+              <label>Bank</label>
+              <select id="bank" required>
+                <option value="">-- Select --</option>
+                <option value="BCA">BCA</option>
+                <option value="Mandiri">Mandiri</option>
+                <option value="BNI">BNI</option>
+                <option value="BRI">BRI</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Account Holder</label>
+              <input type="text" id="accountHolder" placeholder="jaysof" required />
+            </div>
+
+            <div class="form-group">
+              <label>Transaction</label>
+              <div class="quantity-box">
+                <input type="number" id="quantity" value="18" min="1" required />
+              </div>
+              <div class="quantity-note">* 1 transaction is for 3 person, choose 3 from the drop-down list</div>
+
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" id="sendMobile" checked />
+                  Send to Mobile Phone
+                </label>
+                <label>
+                  <input type="checkbox" id="sendEmail" checked />
+                  Send to Email
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Send to Mobile Phone</label>
+              <input type="text" id="mobilePhone" placeholder="6282249621374, 6282249521373" required />
+            </div>
+
+            <div class="form-group">
+              <label>Send to Email</label>
+              <input type="text" id="email" placeholder="syifasofyan8@gmail.com" required />
+            </div>
+
+            <div class="submit-section">
+              <button type="submit" class="submit-btn">Generate Seller Link »</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function previewImage(event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById("imagePreview");
+        const placeholder = document.getElementById("placeholderText");
+
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            preview.style.backgroundImage = `url(${e.target.result})`;
+            preview.style.backgroundSize = "cover";
+            preview.style.backgroundPosition = "center";
+            preview.style.border = "2px solid #4CAF50";
+            placeholder.style.display = "none";
+
+            try {
+              sessionStorage.setItem("orderImage", e.target.result);
+            } catch (err) {
+              console.warn("Gagal menyimpan gambar ke sessionStorage:", err);
+              alert("Gagal menyimpan gambar (mungkin ukurannya terlalu besar). Gunakan gambar yang lebih kecil atau upload ke server.");
+            }
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+
+      function submitForm(event) {
+        event.preventDefault();
+
+        const imageData = sessionStorage.getItem("orderImage") || null;
+
+        const formData = {
+          titleName: document.getElementById("titleName").value,
+          description: document.getElementById("description").value,
+          accountNumber: document.getElementById("accountNumber").value,
+          bank: document.getElementById("bank").value,
+          accountHolder: document.getElementById("accountHolder").value,
+          quantity: document.getElementById("quantity").value,
+          sendMobile: document.getElementById("sendMobile").checked,
+          sendEmail: document.getElementById("sendEmail").checked,
+          mobilePhone: document.getElementById("mobilePhone").value,
+          email: document.getElementById("email").value,
+          imageData: imageData,
+        };
+
+        try {
+          sessionStorage.setItem("orderData", JSON.stringify(formData));
+        } catch (err) {
+          console.error("Gagal menyimpan orderData:", err);
+          alert("Gagal menyimpan data (kemungkinan ukuran gambar terlalu besar). Coba gunakan gambar lebih kecil atau hapus gambar lalu submit ulang.");
+          return;
+        }
+
+        window.location.href = "hasil_pemesanan.html";
+      }
+    </script>
+  </body>
+</html>

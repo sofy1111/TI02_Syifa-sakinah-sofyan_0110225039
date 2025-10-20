@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Hasil Pemesanan Barang</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        padding: 20px;
+      }
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: white;
+        border: 1px solid #ccc;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        background-color: #e8e8e8;
+        padding: 8px 15px;
+        border-bottom: 1px solid #ccc;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .header-icons {
+        display: flex;
+        gap: 8px;
+        font-size: 18px;
+      }
+      .url-bar {
+        flex: 1;
+        padding: 4px 10px;
+        border: 1px solid #999;
+        border-radius: 3px;
+        background-color: white;
+      }
+      .nav-tabs {
+        display: flex;
+        background-color: #f0f0f0;
+        border-bottom: 2px solid #ccc;
+      }
+      .nav-tab {
+        padding: 10px 30px;
+        cursor: pointer;
+        border-right: 1px solid #ccc;
+        background-color: white;
+      }
+      .nav-tab.active {
+        background-color: white;
+        border-bottom: 3px solid #4caf50;
+      }
+      .content {
+        display: flex;
+        padding: 30px;
+        gap: 40px;
+      }
+      .left-section {
+        flex: 0 0 200px;
+      }
+      .image-display {
+        width: 200px;
+        height: 200px;
+        border: 2px solid #999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background-color: #fafafa;
+        overflow: hidden;
+      }
+      .image-display::before,
+      .image-display::after {
+        position: absolute;
+        background-color: #999;
+      }
+      .image-display::before {
+        width: 2px;
+        height: 150px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+      .image-display::after {
+        width: 150px;
+        height: 2px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+      .right-section {
+        flex: 1;
+      }
+      .info-group {
+        margin-bottom: 20px;
+      }
+      .info-label {
+        font-weight: normal;
+        color: #333;
+        margin-bottom: 3px;
+        font-size: 14px;
+      }
+      .info-value {
+        color: #000;
+        font-size: 14px;
+        line-height: 1.6;
+        white-space: pre-line;
+      }
+      .info-box {
+        background-color: #f9f9f9;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        margin-top: 3px;
+      }
+      .checkbox-display {
+        margin-top: 10px;
+      }
+      .checkbox-display label {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        font-weight: normal;
+      }
+      .checkbox-display input[type="checkbox"] {
+        margin-right: 8px;
+        width: 16px;
+        height: 16px;
+      }
+      .button-section {
+        margin-top: 30px;
+        text-align: center;
+      }
+      .action-btn {
+        background-color: #4caf50;
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .action-btn:hover {
+        background-color: #45a049;
+      }
+      .no-image-text {
+        color: #666;
+        font-size: 13px;
+        text-align: center;
+      }
+      .img-style {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="header-icons"><span>←</span><span>→</span><span>✕</span><span>⟳</span></div>
+        <input type="text" class="url-bar" value="http://" readonly />
+        <button style="padding: 4px 15px; border: 1px solid #999; border-radius: 3px; background: white">⚲</button>
+      </div>
+
+      <div class="nav-tabs">
+        <div class="nav-tab active">Home</div>
+        <div class="nav-tab">Register</div>
+        <div class="nav-tab">Policy</div>
+        <div class="nav-tab">About</div>
+      </div>
+
+      <div class="content">
+        <div class="left-section">
+          <div class="image-display" id="imageDisplay">
+            <div class="no-image-text" id="noImageText">No image</div>
+          </div>
+        </div>
+
+        <div class="right-section">
+          <div class="info-group">
+            <div class="info-label">Title Name</div>
+            <div class="info-value" id="displayTitle">Lenovo G40-30</div>
+          </div>
+
+          <div class="info-group">
+            <div class="info-label">Description</div>
+            <div class="info-value" id="displayDescription">Year : 2014 Model : Condition : Mint</div>
+          </div>
+
+          <div class="info-group">
+            <div class="info-label">Total Amount</div>
+            <div class="info-value" id="displayAmount"> </div>
+          </div>
+
+          <div class="info-group">
+            <div class="info-label">Pay to</div>
+            <div class="info-value" id="displayPayTo">7622-1374-6288</div>
+          </div>
+
+          <div class="info-group">
+            <div class="info-label">Payment Type</div>
+            <div class="info-box">
+              <select id="paymentType" style="width: 100%; padding: 6px; border: 1px solid #999">
+                <option value="Bank Debit">Bank Debit</option>
+                <option value="Credit Card">Credit Card</option>
+                <option value="Transfer">Transfer</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="info-group">
+            <div class="info-label">Account Holder</div>
+            <div class="info-box" id="displayHolder">Jaysof</div>
+          </div>
+
+          <div class="info-group">
+            <div class="info-label">Account No.</div>
+            <div class="info-box" id="displayAccountNo">-</div>
+          </div>
+
+          <div class="checkbox-display">
+            <label><input type="checkbox" id="checkMobile" checked disabled /> Send to Mobile Phone</label>
+            <label><input type="checkbox" id="checkEmail" checked disabled /> Email the copy of transaction</label>
+          </div>
+
+          <div class="info-group">
+            <div class="info-label">Send to Mobile Phone</div>
+            <div class="info-box" id="displayMobile">6282249621374, 622249621377</div>
+          </div>
+
+          <div class="info-group">
+            <div class="info-label">Send to Email</div>
+            <div class="info-box" id="displayEmail">syifasofyan8@gmail.com</div>
+          </div>
+
+          <div class="button-section">
+            <button class="action-btn" onclick="window.print()">Pay using Credit »</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.onload = function () {
+        const orderDataStr = sessionStorage.getItem("orderData");
+        const imageData = sessionStorage.getItem("orderImage"); // dataURL jika ada
+
+        if (orderDataStr) {
+          const data = JSON.parse(orderDataStr);
+
+          document.getElementById("displayTitle").textContent = data.titleName || "";
+          document.getElementById("displayDescription").textContent = data.description || "";
+          document.getElementById("displayPayTo").textContent = data.accountNumber || "";
+          document.getElementById("displayHolder").textContent = data.accountHolder || "";
+          document.getElementById("displayMobile").textContent = data.mobilePhone || "";
+          document.getElementById("displayEmail").textContent = data.email || "";
+
+          // Hitung total amount (sama asumsi: qty * 100000)
+          const quantity = parseInt(data.quantity) || 0;
+          const totalAmount = quantity * 100000;
+          document.getElementById("displayAmount").textContent = `Rp.${totalAmount.toLocaleString("id-ID")}`;
+
+          // Set checkboxes
+          document.getElementById("checkMobile").checked = !!data.sendMobile;
+          document.getElementById("checkEmail").checked = !!data.sendEmail;
+        }
+
+        const imageBox = document.getElementById("imageDisplay");
+        const noImageText = document.getElementById("noImageText");
+
+        if (imageData) {
+          const instagramUrl = "https://instagram.com/syifasofy4n";
+
+          const a = document.createElement("a");
+          a.href = instagramUrl;
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+
+          const img = document.createElement("img");
+          img.src = imageData;
+          img.alt = "Produk";
+          img.className = "img-style";
+
+          a.appendChild(img);
+
+          imageBox.innerHTML = "";
+          imageBox.appendChild(a);
+        } else {
+          imageBox.innerHTML = '<div class="no-image-text">Tidak ada gambar</div>';
+        }
+      };
+    </script>
+  </body>
+</html>
